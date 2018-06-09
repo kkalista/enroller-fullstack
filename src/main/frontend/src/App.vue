@@ -27,37 +27,47 @@
 </template>
 
 <script>
-    import "milligram";
-    import LoginForm from "./LoginForm";
-    import MeetingsPage from "./meetings/MeetingsPage";
+import "milligram";
+import LoginForm from "./LoginForm";
+import MeetingsPage from "./meetings/MeetingsPage";
 
-    export default {
-        components: {LoginForm, MeetingsPage},
-        data() {
-            return {
-                authenticatedUsername: "",
-                isRegistering: false
-            };
-        },
-        methods: {
-            login(user) {
-                this.authenticatedUsername = user.login;
-            },
-            logout() {
-                this.authenticatedUsername = '';
-            }
-        }
+export default {
+  components: { LoginForm, MeetingsPage },
+  data() {
+    return {
+      authenticatedUsername: "",
+      isRegistering: false
     };
+  },
+  methods: {
+    login(user) {
+      this.authenticatedUsername = user.login;
+    },
+    logout() {
+      this.authenticatedUsername = "";
+    },
+    register(user) {
+      this.$http
+        .post("participants", user)
+        .then(response => {
+          // udało się
+        })
+        .catch(response => {
+          // nie udało sie
+        });
+    }
+  }
+};
 </script>
 
 <style>
-  #app {
-    max-width: 1000px;
-    margin: 0 auto;
-  }
+#app {
+  max-width: 1000px;
+  margin: 0 auto;
+}
 
-  .logo {
-    vertical-align: middle;
-  }
+.logo {
+  vertical-align: middle;
+}
 </style>
 
